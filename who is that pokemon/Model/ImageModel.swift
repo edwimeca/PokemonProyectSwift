@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct ImageModel: Codable{
+    let imageURL: String
+}
+
