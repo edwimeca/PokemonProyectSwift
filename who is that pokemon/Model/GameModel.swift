@@ -15,15 +15,14 @@ class GameModel {
     func checkAnswer (_ userAnswer:String, _ correctAnswer:String)->Bool{
         if userAnswer.lowercased() == correctAnswer.lowercased(){
             score += 1
+            if score >= mayorScore {
+                mayorScore = score
+                print("mayor score \(mayorScore)")
+            }
             return true
         } else {
             lifes -= 1
             return false
-        }
-        if lifes == 0 && score >= mayorScore {
-            mayorScore = score
-            print("mayor score \(mayorScore)")
-            
         }
     }
     

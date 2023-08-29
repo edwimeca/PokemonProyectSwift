@@ -2,19 +2,17 @@
 //  ViewController.swift
 //  who is that pokemon
 //
-//  Created by Alex Camacho on 01/08/22.
-//
 
 import UIKit
 import Kingfisher
 
 class PokemonViewController: UIViewController {
 
+    @IBOutlet weak var lblBestScore: UILabel!
     @IBOutlet var btnsAnswers: [UIButton]!
     @IBOutlet weak var lblResultResponse: UILabel!
     @IBOutlet weak var imgPokemon: UIImageView!
     @IBOutlet weak var lblScore: UILabel!
-    
     
     lazy var pokemonManager = PokemonManager()
     lazy var imageManager = ImageManager()
@@ -28,18 +26,17 @@ class PokemonViewController: UIViewController {
     }
     var correctAnswer: String = ""
     var correctAnswerImage: String = ""
-    
         
     override func viewDidLoad() {
         super.viewDidLoad()
         
         pokemonManager.delegate = self
         imageManager.delegate = self
-        
               
         createButtons()
         pokemonManager.fetchPokemon()
         lblResultResponse.text = ""
+        lblBestScore.text = "Best Score : \(game.mayorScore)"
         
     }
     
@@ -48,9 +45,10 @@ class PokemonViewController: UIViewController {
         
         if game.checkAnswer(userAnswer, correctAnswer) {
             lblResultResponse.text = "Yes, It is a \(userAnswer.capitalized)"
-            lblScore.text = "Score : \(game.score)"
+            lblScore.text = "Actual Score : \(game.score)"
+            lblBestScore.text = "Best Score : \(game.mayorScore)"
             
-            sender.layer.borderColor = UIColor.systemGreen.cgColor
+            sender.layer.borderColor = UIColor.black.cgColor  //UIColor.systemGreen.cgColor
             sender.layer.borderWidth = 2
             
             updateImage()
@@ -82,6 +80,7 @@ class PokemonViewController: UIViewController {
             let destination = segue.destination as! ResultsViewController
             destination.pokemonName = correctAnswer
             destination.pokemonImageURL = correctAnswerImage
+            destination.textButton = "Continue playing"
             
             if game.lifes != 0{
                 destination.textScore = "You lost. your score is \(game.score)"                
@@ -91,6 +90,7 @@ class PokemonViewController: UIViewController {
                 destination.messageGame = "GAME OVER"
                 destination.mayorScore = game.mayorScore
                 destination.textScore = "You lost. your score was \(game.score)"
+                destination.textButton = "Start Again"
                 resetGame()
             }
             
@@ -131,6 +131,7 @@ class PokemonViewController: UIViewController {
 }
 
 extension PokemonViewController: PokemonManagerDelegate {
+    
     func didUpdatePokemon(pokemons: [PokemonModel]) {
         random4Pokemons = pokemons.choose(4)
         

@@ -10,6 +10,7 @@ import Kingfisher
 
 class ResultsViewController: UIViewController {
    
+    @IBOutlet weak var btnPlayAgain: UIButton!
     @IBOutlet weak var lblMesageGame: UILabel!
     @IBOutlet weak var imgPokemon: UIImageView!
     @IBOutlet weak var lblFinalScore: UILabel!
@@ -20,6 +21,7 @@ class ResultsViewController: UIViewController {
     var textScore = ""
     var messageGame = " "
     var mayorScore = 0
+    var textButton = ""
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +30,7 @@ class ResultsViewController: UIViewController {
         lblMessageNonPokemon.text = "No. it is a \(pokemonName.capitalized)"
         imgPokemon.kf.setImage(with: URL(string: pokemonImageURL))
         lblMesageGame.text = messageGame
-        //lblmayorScoreMessage.text = "The mayor score has been: \(mayorScore)"
+        btnPlayAgain.setTitle(textButton, for: .normal)
     }
     
     @IBAction func btnPlayAgainPressed(_ sender: UIButton) {        
