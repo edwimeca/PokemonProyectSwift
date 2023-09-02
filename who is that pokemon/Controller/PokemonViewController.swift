@@ -158,13 +158,28 @@ extension PokemonViewController: ImageManagerDelegate {
             //Usamos la dependencia para traer la imagen y le configuramos el collor a negro.. consultar documentacion https://github.com/onevcat/Kingfisher
             
             let url = URL(string: correctAnswerImage)
-            let effec = ColorControlsProcessor(brightness: -1, contrast: 1, saturation: 1, inputEV: 0)
-            imgPokemon.kf.setImage(
-                with: url,
-                options: [
-                    .processor(effec)
-                ]
-            )
+            if self.traitCollection.userInterfaceStyle == .dark {
+                        // El modo oscuro está activado
+                let effec = ColorControlsProcessor(brightness:5, contrast: 50, saturation: 20, inputEV: 5)
+                imgPokemon.kf.setImage(
+                    with: url,
+                    options: [
+                        .processor(effec)
+                    ]
+                )
+                print("Modo oscuro activado")
+                
+            } else {
+                // El modo normal está activado
+                let effec = ColorControlsProcessor(brightness: -1, contrast: 1, saturation: 1, inputEV: 0)
+                imgPokemon.kf.setImage(
+                        with: url,
+                        options: [
+                                .processor(effec)
+                    ]
+                )
+                print("Modo claro activado")
+            }
         }
     }
     
