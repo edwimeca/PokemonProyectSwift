@@ -7,6 +7,7 @@
 
 import Foundation
 
+//Se crea el protocolo
 protocol PokemonManagerDelegate {
     func didUpdatePokemon(pokemons: [PokemonModel])
     func didFailWithError(error: Error)
@@ -17,6 +18,7 @@ struct PokemonManager {
     let pokemonURL: String = "https://pokeapi.co/api/v2/pokemon?limit=998&offset=0)"
     //let pokemonURL: String = "https://pokeapi.co/api/v2/pokemon?limit=4&offset=\(Int.random(in: 0...994))"
     
+    //Creamos la variable de tipo protocolo
     var delegate: PokemonManagerDelegate?
     
     func fetchPokemon (){
